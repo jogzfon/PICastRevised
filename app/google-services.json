@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293327706874",
+    "project_id": "picast-38170",
+    "storage_bucket": "picast-38170.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293327706874:android:5b0c6e7a91af7e82cfc743",
+        "android_client_info": {
+          "package_name": "com.example.picastrevised"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293327706874-38r0p7tso5lo6u5a5a5g203nuj02qm7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv8yKLdY8bQjXQF661KazdXXEhLa7EEns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293327706874-38r0p7tso5lo6u5a5a5g203nuj02qm7m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

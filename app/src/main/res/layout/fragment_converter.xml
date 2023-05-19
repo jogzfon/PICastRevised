@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="380dp"
+    android:layout_height="match_parent"
+    tools:context=".Converter">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnPngToJpg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PNG to JPG Converter"
+                android:textColor="@color/white"
+                app:backgroundTint="#1BCDED"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btnJpgToPng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="jpg to png converter"
+                android:textColor="@color/white"
+                app:backgroundTint="#1BCDED"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btnImgToGif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="image to gif converter"
+                android:textColor="@color/white"
+                app:backgroundTint="#1BCDED"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btnImgToSprite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="image to sprites converter"
+                android:textColor="@color/white"
+                app:backgroundTint="#1BCDED"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btnImgToPdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="image to pdf converter"
+                android:textColor="@color/white"
+                app:backgroundTint="#1BCDED"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btnBgRemover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Image background remover"
+                android:textColor="@color/white"
+                app:backgroundTint="#1BCDED"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
