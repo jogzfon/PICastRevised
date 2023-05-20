@@ -58,6 +58,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         //Drawer Nav
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        //Conversion Buttons
 
         //Bottom Nav
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
