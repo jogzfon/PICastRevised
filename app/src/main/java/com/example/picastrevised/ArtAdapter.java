@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +34,10 @@ public class ArtAdapter extends RecyclerView.Adapter<ArtAdapter.ArtImageViewHold
             super(itemView);
             artImage = itemView.findViewById(R.id.artImage);
             titleTv = itemView.findViewById(R.id.artTitle);
+            View view = itemView;
+            view.setOnClickListener(view1 -> {
+                Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
+            });
         }
     }
 

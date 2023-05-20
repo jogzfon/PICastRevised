@@ -150,7 +150,7 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
-            Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Conversion successful. Please check your Downloads folder", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -173,7 +173,7 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
-            Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Conversion successful. Please check your Downloads folder", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -208,7 +208,7 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
         }
         try{
             pdfDocument.writeTo(new FileOutputStream(file));
-            Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Conversion successful. Please check your Downloads folder", Toast.LENGTH_LONG).show();
         }catch(IOException e){
             e.printStackTrace();
             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();

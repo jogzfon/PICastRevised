@@ -84,6 +84,7 @@ public class Login extends AppCompatActivity {
                 } else {
                     // User with the specified username does not exist
                     // Handle the non-existence of the user here
+                    Toast.makeText(Login.this, "Account does not exist", Toast.LENGTH_SHORT).show();
                     System.out.println("No alien were found");
                 }
             }

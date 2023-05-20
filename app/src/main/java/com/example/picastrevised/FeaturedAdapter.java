@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,9 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             featuredArtTitle = itemView.findViewById(R.id.featuredTitle);
             featuredAuthorName = itemView.findViewById(R.id.featuredAuthorName);
             featuredAuthorImage = itemView.findViewById(R.id.featuredAuthorImage);
+            itemView.setOnClickListener(view -> {
+                Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
+            });
         }
     }
 
