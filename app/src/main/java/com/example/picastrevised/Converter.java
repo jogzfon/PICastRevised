@@ -86,16 +86,19 @@ public class Converter extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btnImgToPdf:
                 Fragment toFragment = Converter_Conversion.newInstance(R.id.btnImgToPdf, Img2pdfID, Jpg2PngID, Png2JpgID);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
                 transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
                 transaction.commit();
                 break;
             case R.id.btnJpgToPng:
                 toFragment = Converter_Conversion.newInstance(R.id.btnJpgToPng, Img2pdfID, Jpg2PngID, Png2JpgID);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
                 transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
                 transaction.commit();
                 break;
             case R.id.btnPngToJpg:
                 toFragment = Converter_Conversion.newInstance(R.id.btnPngToJpg, Img2pdfID, Jpg2PngID, Png2JpgID);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
                 transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
                 transaction.commit();
                 break;
