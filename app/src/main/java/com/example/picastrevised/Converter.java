@@ -1,5 +1,6 @@
 package com.example.picastrevised;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -72,6 +73,8 @@ public class Converter extends Fragment implements View.OnClickListener{
         jpg2Png.setOnClickListener(this);
         Button png2Jpg = view.findViewById(R.id.btnPngToJpg);
         png2Jpg.setOnClickListener(this);
+        Button bgRemover = view.findViewById(R.id.btnBgRemover);
+        bgRemover.setOnClickListener(this);
         return view;
     }
 
@@ -102,6 +105,8 @@ public class Converter extends Fragment implements View.OnClickListener{
                 transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
                 transaction.commit();
                 break;
+            case R.id.btnBgRemover: //this is just a test for the payment portal
+                startActivity(new Intent(getActivity(), Payment.class));
         }
     }
 }
