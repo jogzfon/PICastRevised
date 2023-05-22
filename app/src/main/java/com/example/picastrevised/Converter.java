@@ -1,20 +1,25 @@
 package com.example.picastrevised;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Converter#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Converter extends Fragment {
-
+public class Converter extends Fragment implements View.OnClickListener{
+    Button btnImg2Pdf;
+    int buttonIdPressed;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,6 +28,7 @@ public class Converter extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public Converter() {
         // Required empty public constructor
@@ -59,6 +65,48 @@ public class Converter extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_converter, container, false);
+        View view = inflater.inflate(R.layout.fragment_converter, container, false);
+
+        Button img2Pdf = view.findViewById(R.id.btnImgToPdf);
+        img2Pdf.setOnClickListener(this);
+        Button jpg2Png = view.findViewById(R.id.btnJpgToPng);
+        jpg2Png.setOnClickListener(this);
+        Button png2Jpg = view.findViewById(R.id.btnPngToJpg);
+        png2Jpg.setOnClickListener(this);
+        Button bgRemover = view.findViewById(R.id.btnBgRemover);
+        bgRemover.setOnClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setReorderingAllowed(true);
+        int Img2pdfID = R.id.btnImgToPdf;
+        int Jpg2PngID = R.id.btnJpgToPng;
+        int Png2JpgID = R.id.btnPngToJpg;
+        switch (view.getId()){
+            case R.id.btnImgToPdf:
+                Fragment toFragment = Converter_Conversion.newInstance(R.id.btnImgToPdf, Img2pdfID, Jpg2PngID, Png2JpgID);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
+                transaction.commit();
+                break;
+            case R.id.btnJpgToPng:
+                toFragment = Converter_Conversion.newInstance(R.id.btnJpgToPng, Img2pdfID, Jpg2PngID, Png2JpgID);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
+                transaction.commit();
+                break;
+            case R.id.btnPngToJpg:
+                toFragment = Converter_Conversion.newInstance(R.id.btnPngToJpg, Img2pdfID, Jpg2PngID, Png2JpgID);
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                transaction.replace(((ViewGroup)getView().getParent()).getId(), toFragment, null);
+                transaction.commit();
+                break;
+            case R.id.btnBgRemover: //this is just a test for the payment portal
+                startActivity(new Intent(getActivity(), Payment.class));
+        }
     }
 }

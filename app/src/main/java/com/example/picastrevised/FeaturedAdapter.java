@@ -1,10 +1,14 @@
 package com.example.picastrevised;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +47,11 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             featuredArtTitle = itemView.findViewById(R.id.featuredTitle);
             featuredAuthorName = itemView.findViewById(R.id.featuredAuthorName);
             featuredAuthorImage = itemView.findViewById(R.id.featuredAuthorImage);
+            itemView.setOnClickListener(view -> {
+                //store image in a bitmap variable
+                BitmapDrawable drawable = (BitmapDrawable) featuredArtImage.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+            });
         }
     }
 
@@ -66,6 +75,13 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
                 .load(artData.getAuthorImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.featuredAuthorImage);
+
+        holder.itemView.setOnClickListener(view -> {
+            ArtData artData1 = mList.get(holder.getAdapterPosition());
+
+//            BitmapDrawable drawable = (BitmapDrawable) holder.featuredArtImage.getDrawable();
+//            Bitmap bitmap = drawable.getBitmap();
+        });
     }
 
     @Override

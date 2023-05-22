@@ -3,8 +3,10 @@ package com.example.picastrevised;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopImageViewH
             super(itemView);
             shopArtImage = itemView.findViewById(R.id.shopArtImage);
             shopArtTitle = itemView.findViewById(R.id.shopArtTitle);
+            shopArtImage.setOnClickListener(view -> {
+                Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
+            });
         }
     }
 

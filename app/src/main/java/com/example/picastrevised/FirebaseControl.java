@@ -31,9 +31,17 @@ public class FirebaseControl {
         myRef.child(artTitle).setValue(data);
     }
     public void AddUser(Account acc){
+        DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("Users");
         System.out.println("User Added Successfully!");
         myRef = db.getReference("Users");
         userName = acc.getUsername();
         myRef.child(userName).setValue(acc);
+    }
+
+    public void AddToCart(ArtData data){
+        db = FirebaseDatabase.getInstance();
+        myRef = db.getReference("Artworks");
+        artTitle = data.getTitle();
+        myRef.child(artTitle).setValue(data);
     }
 }
