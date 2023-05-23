@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="300dp"
                 android:background="#000000"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/sung" />
 
             <TextView

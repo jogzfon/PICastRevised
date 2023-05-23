@@ -119,6 +119,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                         return true;
                     case R.id.nav_notification:
                         // handle click on dashboard button
+                        replacementFragment(new Cart());
                         return true;
                     case R.id.nav_favorites:
                         // handle click on notifications button

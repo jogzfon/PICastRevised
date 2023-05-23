@@ -70,15 +70,19 @@ public class FirebaseControl {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 price = snapshot.child("price").getValue(Double.class);
                 cart.setArtPrice(price);
-                if(Login.region == "United States")
-                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceUSD());
-                else if(Login.region == "Japan")
+                if(Login.region.equals("United States")) {
+                    myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
+                    myRef.child(Login.globalUsername).child(itemName).child("artPrice").setValue(cart.getArtPriceUSD());
+                }else if(Login.region.equals("Japan")) {
+                    myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
                     myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceJPY());
-                else if(Login.region == "Singapore")
+                }else if(Login.region.equals("Singapore")) {
+                    myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
                     myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceSGD());
-                else
-                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPrice());
-
+                }else {
+                    myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
+                    myRef.child(Login.globalUsername).child(itemName).child("artPrice").setValue(cart.getArtPrice());
+                }
                 System.out.println("Item added to Cart!");
             }
 

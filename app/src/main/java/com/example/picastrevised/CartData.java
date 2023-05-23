@@ -44,7 +44,7 @@ public class CartData {
     }
 
     public double getArtPriceUSD() {
-        return artPriceUSD;
+        return artPrice * 0.017;
     }
 
     public void setArtPriceUSD(double artPriceUSD) {
@@ -52,7 +52,7 @@ public class CartData {
     }
 
     public double getArtPriceSGD() {
-        return artPriceSGD;
+        return artPrice * 0.024;
     }
 
     public void setArtPriceSGD(double artPriceSGD) {
@@ -60,7 +60,7 @@ public class CartData {
     }
 
     public double getArtPriceJPY() {
-        return artPriceJPY;
+        return artPrice * 2.48;
     }
 
     public void setArtPriceJPY(double artPriceJPY) {

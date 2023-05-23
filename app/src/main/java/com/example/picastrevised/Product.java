@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,7 +63,15 @@ public class Product extends AppCompatActivity {
                         cartData = new CartData(imgtitle, artImage, artPrice, artAuthor, uname);
                         Picasso.get().load(cartData.getArtImage()).into(imgProduct);
                         imgTitle.setText(cartData.getTitle());
-                        price.setText("P "+artPrice);
+
+                        if(Login.region.equals("United States")) {
+                            price.setText("$ "+String.format("%.2f", cartData.getArtPriceUSD()));
+                        }else if(Login.region.equals("Japan")) {
+                            price.setText("¥ "+String.format("%.2f", cartData.getArtPriceJPY()));
+                        }else if(Login.region.equals("Singapore")) {
+                            price.setText("SGD "+String.format("%.2f", cartData.getArtPriceSGD()));
+                        }else
+                            price.setText("₱ "+String.format("%.2f", artPrice));
                         break;
                     }
                 }
