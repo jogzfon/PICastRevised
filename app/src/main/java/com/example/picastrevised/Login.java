@@ -1,6 +1,8 @@
 package com.example.picastrevised;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
-
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class Login extends AppCompatActivity {
             GoToRegistration();
         });
 
+        sp = getSharedPreferences("User",Context.MODE_PRIVATE);
     }
     private void GoToRegistration(){
         Intent intent = new Intent(this, Registration.class);
@@ -71,6 +74,9 @@ public class Login extends AppCompatActivity {
                         password.setText("");
                     }else{
                         if(tempPassword.equals(upass)){
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("name", uname);
+                            editor.commit();
                             Toast.makeText(Login.this, "Log-in successful!", Toast.LENGTH_SHORT).show();
                             GoToHomePage();
                         }else{

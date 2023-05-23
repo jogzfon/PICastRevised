@@ -14,7 +14,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseControl {
-    String artTitle,userName;
+    String artTitle,userName,itemName;
     FirebaseDatabase db;
     DatabaseReference myRef;
     DataSnapshot dataSnapshot;
@@ -37,11 +37,11 @@ public class FirebaseControl {
         userName = acc.getUsername();
         myRef.child(userName).setValue(acc);
     }
-
-    public void AddToCart(ArtData data){
-        db = FirebaseDatabase.getInstance();
-        myRef = db.getReference("Artworks");
-        artTitle = data.getTitle();
-        myRef.child(artTitle).setValue(data);
+    public void AddToCart(ArtData art){
+        DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("Cart");
+        System.out.println("Item added to Cart!");
+        myRef = db.getReference("Cart");
+        itemName = art.getTitle();
+        myRef.child(itemName).setValue(art);
     }
 }

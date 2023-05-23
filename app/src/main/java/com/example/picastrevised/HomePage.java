@@ -3,6 +3,7 @@ package com.example.picastrevised;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -192,6 +194,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 break;
             case R.id.fabCamera:
                 openCamera();
+                break;
+            case R.id.cardView:
+                TextView featuredArtTitle = findViewById(R.id.featuredTitle);
+                Toast.makeText(this, featuredArtTitle.getText(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
