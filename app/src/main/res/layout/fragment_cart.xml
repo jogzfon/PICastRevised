@@ -29,46 +29,50 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/featuredRecycleView"
+                android:id="@+id/cartRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
                 android:id="@+id/textView23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="70dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="36dp"
                 android:fontFamily="@font/baloo_bhaina"
+                android:maxLines="1"
                 android:text="TOTAL:"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/totalAmount"
+                app:layout_constraintTop_toBottomOf="@+id/cartRecycleView" />
 
             <TextView
                 android:id="@+id/totalAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
+                android:layout_width="97dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="P1000.00"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/button3"
-                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/btnCheckout"
+                app:layout_constraintTop_toBottomOf="@+id/cartRecycleView" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnCheckout"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 android:text="Check Out"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView"
+                app:layout_constraintTop_toBottomOf="@+id/cartRecycleView"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

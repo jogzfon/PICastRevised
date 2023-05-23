@@ -1,7 +1,5 @@
 package com.example.picastrevised;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +54,6 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Store image in a bitmap variable
                     Toast.makeText(itemView.getContext(), "Image clicked!", Toast.LENGTH_SHORT).show();
                 }
             });

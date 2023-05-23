@@ -38,37 +38,10 @@
                 app:cornerRadius="10dp" />
 
             <Button
-                android:id="@+id/btnPdfToPng"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="pdf to png converter"
-                android:textColor="@color/white"
-                app:backgroundTint="#1BCDED"
-                app:cornerRadius="10dp" />
-
-            <Button
-                android:id="@+id/btnImgToSprite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="image to sprites converter"
-                android:textColor="@color/white"
-                app:backgroundTint="#1BCDED"
-                app:cornerRadius="10dp" />
-
-            <Button
                 android:id="@+id/btnImgToPdf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="image to pdf converter"
-                android:textColor="@color/white"
-                app:backgroundTint="#1BCDED"
-                app:cornerRadius="10dp" />
-
-            <Button
-                android:id="@+id/btnBgRemover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Image background remover"
                 android:textColor="@color/white"
                 app:backgroundTint="#1BCDED"
                 app:cornerRadius="10dp" />

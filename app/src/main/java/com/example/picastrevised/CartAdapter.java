@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,33 +16,33 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartImageViewHolder> {
 
-    private List<CartData> mList;
-    private CartAdapter.OnItemClickListener onItemClick;
+    private List<ArtData> mList;
+    private OnItemClickListener onItemClick;
 
     public interface OnItemClickListener {
-        void onItemClick(CartData cartData);
+        void onItemClick(ArtData artData);
     }
 
     public void setOnItemClickListener(CartAdapter.OnItemClickListener listener) {
         onItemClick = listener;
     }
 
-    public CartAdapter(List<CartData> mList) {
+    public CartAdapter(List<ArtData> mList) {
         this.mList = mList;
     }
-    public void setFilteredList(List<CartData> mList){
+    public void setFilteredList(List<ArtData> mList){
         this.mList = mList;
         notifyDataSetChanged();
     }
-    public static class ArtImageViewHolder extends RecyclerView.ViewHolder {
+    public class CartImageViewHolder extends RecyclerView.ViewHolder {
         public final ImageView cartImage;
         public final TextView cartTitle;
         public final TextView cartPrice;
 
 
-        public ArtImageViewHolder(View itemView) {
+        public CartImageViewHolder(View itemView) {
             super(itemView);
             cartImage = itemView.findViewById(R.id.cartImage);
             cartTitle = itemView.findViewById(R.id.cartTitle);
@@ -54,14 +55,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHo
     }
 
     @Override
-    public ArtImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CartImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_cart_item, parent, false);
-        return new ArtImageViewHolder(view);
+        return new CartImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ArtImageViewHolder holder, int position) {
-        CartData cartData = mList.get(position);
+    public void onBindViewHolder(@NonNull CartImageViewHolder holder, int position) {
+        ArtData cartData = mList.get(position);
         Glide.with(holder.itemView)
                 .load(cartData.getArtImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

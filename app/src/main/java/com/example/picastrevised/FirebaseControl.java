@@ -27,22 +27,19 @@ public class FirebaseControl {
         artTitle = data.getTitle();
         myRef.child(artTitle).setValue(data);
     }
-    public boolean[] AddUser(Account acc){
+    public void AddUser(Account acc){
         myRef = db.getReference("UsersWithRegion");
         userName = acc.getUsername();
-        final boolean[] added = new boolean[1];
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data : snapshot.getChildren()){
                     if(data.child(userName).exists()){
-                        System.out.println("User already exists");
-                        added[0] = false;
+                        return;
                     }else{
                         myRef.child(userName).setValue(acc);
                         myRef.child(userName).child("region").setValue(acc.getRegion());
                         System.out.println("User Added Successfully!");
-                        added[0] = true;
                     }
                 }
             }
@@ -52,7 +49,6 @@ public class FirebaseControl {
 
             }
         });
-        return added;
     }
 //    public void AddToCart(CartData cart){
 //        db = FirebaseDatabase.getInstance();
