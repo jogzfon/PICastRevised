@@ -117,16 +117,18 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                         // handle click on home button
                         replacementFragment(new Featured());
                         return true;
-                    case R.id.nav_notification:
+                    case R.id.nav_cart:
                         // handle click on dashboard button
                         replacementFragment(new Cart());
                         return true;
                     case R.id.nav_favorites:
                         // handle click on notifications button
-
+                        replacementFragment(new Favorites());
                         return true;
                     case R.id.nav_account:
                         // handle click on notifications button
+                        Intent intent = new Intent(HomePage.this,Profile.class);
+                        startActivity(intent);
                         return true;
                 }
                 return false;
