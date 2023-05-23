@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="300dp"
                 android:background="#000000"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/sung" />
 
             <TextView
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="100dp">
+            android:layout_marginBottom="150dp">
 
             <Button
                 android:id="@+id/btnAddToFavorites"
@@ -81,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="Add To Favorites"
+                android:background="@drawable/round_featured"
+                android:backgroundTint="#DEEE1F"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

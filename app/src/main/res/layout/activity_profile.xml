@@ -8,11 +8,11 @@
     tools:context=".Profile">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="700dp"
-        android:background="@drawable/round_featured"
-        android:backgroundTint="@color/white"
         app:cardBackgroundColor="@color/white"
+        android:background="@drawable/round_featured"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +22,10 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="20dp"
             android:text="HEY!"
+            android:textColor="@color/black"
             android:textSize="34sp" />
 
         <TextView
@@ -34,28 +35,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/baloo_bhaina"
-            android:text="Enuq"
-            android:textSize="50dp" />
-
-        <TextView
-            android:id="@+id/txtnone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="120dp"
-            android:fontFamily="@font/baloo_bhaina"
-            android:text="Wallet Balance: "
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/txtBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="120dp"
-            android:fontFamily="@font/baloo_bhaina"
-            android:text="P 0"
-            android:textSize="18dp" />
+            android:text="Brud"
+            android:textColor="@color/black"
+            android:textSize="60dp" />
 
         <ImageView
             android:id="@+id/imgProfile"
@@ -67,23 +49,141 @@
             android:background="@drawable/profile"
             app:srcCompat="@drawable/account" />
 
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/baloo_bhaina"
+                    android:text="Occupation:"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtOccupation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/alata"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/baloo_bhaina"
+                    android:text="Region:"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtRegion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/alata"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/baloo_bhaina"
+                    android:text="Email:"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/alata"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_bhaina"
+                android:text="BIO"
+                android:textColor="#050505"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/txtBio"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/round_featured"
+                android:backgroundTint="#5BDDB8"
+                android:fontFamily="@font/alata"
+                android:text="TextView"
+                android:padding="10dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/white"
             android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/btnLogout"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Logout"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/imgBtnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="back"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/back" />
 
     </androidx.cardview.widget.CardView>
 
