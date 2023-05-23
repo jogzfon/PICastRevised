@@ -1,5 +1,7 @@
 package com.example.picastrevised;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -53,10 +55,31 @@ public class FirebaseControl {
         return added;
     }
     public void AddToCart(ArtData art){
-        DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("Cart");
-        System.out.println("Item added to Cart!");
         myRef = db.getReference("Cart");
         itemName = art.getTitle();
-        myRef.child(itemName).setValue(art);
+        DatabaseReference priceRef = db.getReference("ShopImages").child(itemName);
+        final double[] price = new double[1];
+        priceRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                price[0] = snapshot.child("price").getValue(Double.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        art.setArtPrice(price[0]);
+        if(Login.region == "United States")
+            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPriceUSD());
+        else if(Login.region == "Japan")
+            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPriceJPY());
+        else if(Login.region == "Singapore")
+            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPriceSGD());
+        else
+            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPrice());
+
+        System.out.println("Item added to Cart!");
     }
 }
