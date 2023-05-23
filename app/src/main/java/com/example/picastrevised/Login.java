@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     SharedPreferences sp;
+    public static String region, globalUsername;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class Login extends AppCompatActivity {
     public void getUser(EditText username,EditText password) {
         FirebaseDatabase db =FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef;
-        myRef = db.getReference().child("Users").child(username.getText().toString());
+        myRef = db.getReference().child("UsersWithRegion").child(username.getText().toString());
         String uname = username.getText().toString();
         String upass = password.getText().toString();
         myRef.addValueEventListener(new ValueEventListener() {
@@ -64,7 +65,7 @@ public class Login extends AppCompatActivity {
                     tempUserName = dataSnapshot.child("username").getValue(String.class);
                     tempPassword= dataSnapshot.child("password").getValue(String.class);
                     tempEmail = dataSnapshot.child("email").getValue(String.class);
-                    System.out.println(tempUserName+tempPassword+tempEmail);
+                    System.out.println(tempUserName+tempPassword+tempEmail+region);
 
                     System.out.println(tempUserName+" "+uname);
                     if(!tempUserName.equals(uname)){
@@ -77,6 +78,8 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("name", uname);
                             editor.commit();
+                            region = dataSnapshot.child("region").getValue(String.class);
+                            globalUsername = tempUserName;
                             Toast.makeText(Login.this, "Log-in successful!", Toast.LENGTH_SHORT).show();
                             GoToHomePage();
                         }else{

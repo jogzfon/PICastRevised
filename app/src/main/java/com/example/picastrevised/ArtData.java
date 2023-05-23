@@ -25,7 +25,8 @@ public class ArtData implements Serializable {
         this.artImage = artImage;
         this.author = author;
     }
-    public ArtData(String title, String artImage,String authorImage, String author) {
+
+    public ArtData(String title, String artImage, String authorImage, String author) {
         this.title = title;
         this.artImage = artImage;
         this.author = author;
@@ -44,7 +45,7 @@ public class ArtData implements Serializable {
     }
 
     public double getArtPriceUSD() {
-        return artPriceUSD;
+        return artPrice * 0.018;
     }
 
     public void setArtPriceUSD(double artPriceUSD) {
@@ -52,7 +53,7 @@ public class ArtData implements Serializable {
     }
 
     public double getArtPriceSGD() {
-        return artPriceSGD;
+        return artPrice * 0.024;
     }
 
     public void setArtPriceSGD(double artPriceSGD) {
@@ -60,12 +61,16 @@ public class ArtData implements Serializable {
     }
 
     public double getArtPriceJPY() {
-        return artPriceJPY;
+        return artPrice * 2.48;
     }
 
     public void setArtPriceJPY(double artPriceJPY) {
         this.artPriceJPY = artPriceJPY;
     }
+    public void setArtPrice(double artPrice) {
+        this.artPrice = artPrice;
+    }
+
 
     public String getArtDescription() {
         return artDescription;

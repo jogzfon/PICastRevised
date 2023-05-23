@@ -131,6 +131,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 return false;
             }
         });
+        if(Login.region == "Philippines"){
+            Toast.makeText(this, "Phil account", Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(this, Login.region, Toast.LENGTH_SHORT).show();
     }
     private void filterList(String query){
         if(query != null){

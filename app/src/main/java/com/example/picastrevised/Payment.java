@@ -73,8 +73,20 @@ public class Payment extends AppCompatActivity {
     private void getPayment(){
         String amount = amountEdt.getText().toString();
 
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "USD", "PICasT Artworks",
-                PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payment = null;
+
+        if(Login.region == "United States")
+            payment = new PayPalPayment(new BigDecimal(amount), "USD", "PICasT Artworks",
+                    PayPalPayment.PAYMENT_INTENT_SALE);
+        else if(Login.region == "Singapore")
+            payment = new PayPalPayment(new BigDecimal(amount), "SGD", "PICasT Artworks",
+                    PayPalPayment.PAYMENT_INTENT_SALE);
+        else if(Login.region == "Japan")
+            payment = new PayPalPayment(new BigDecimal(amount), "JPY", "PICasT Artworks",
+                    PayPalPayment.PAYMENT_INTENT_SALE);
+        else
+            payment = new PayPalPayment(new BigDecimal(amount), "PHP", "PICasT Artworks",
+                    PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
