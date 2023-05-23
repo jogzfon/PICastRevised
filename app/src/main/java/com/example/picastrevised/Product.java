@@ -85,9 +85,13 @@ public class Product extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseControl firebaseControl = new FirebaseControl();
-                firebaseControl.AddToCart(cartData);
-                Toast.makeText(Product.this, "Item Added To Cart", Toast.LENGTH_SHORT).show();
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app");
+                DatabaseReference shopImagesRef = database.getReference("ShopImages");
+                TextView title = findViewById(R.id.imgTitle);
+                DatabaseReference adventOfLightRef = shopImagesRef.child(title.getText().toString());
+
+                adventOfLightRef.child("isCart").setValue(1);
+                Toast.makeText(Product.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         });
         btnAddToFav.setOnClickListener(new View.OnClickListener() {
