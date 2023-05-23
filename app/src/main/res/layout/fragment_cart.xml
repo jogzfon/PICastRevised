@@ -20,7 +20,7 @@
                 android:layout_width="382dp"
                 android:layout_height="40dp"
                 android:fontFamily="@font/baloo_bhaina"
-                android:text="FEATURED"
+                android:text="CART"
                 android:textAlignment="center"
                 android:textColor="#0A3277"
                 android:textSize="25sp"
@@ -35,6 +35,42 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/baloo_bhaina"
+                android:text="TOTAL:"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="P1000.00"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/button3"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="Check Out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView"
+                tools:ignore="TouchTargetSizeCheck" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>
