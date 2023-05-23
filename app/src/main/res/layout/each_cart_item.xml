@@ -52,14 +52,14 @@
                     android:id="@+id/cartPrice"
                     android:layout_width="200dp"
                     android:layout_height="50dp"
+                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/baloo_bhaina"
                     android:text="Miyazaki"
-                    android:textAlignment="center"
+                    android:textAlignment="textEnd"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

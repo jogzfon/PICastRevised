@@ -6,35 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".Favorites">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:contentDescription="featured">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="382dp"
-            android:layout_height="40dp"
-            android:fontFamily="@font/baloo_bhaina"
-            android:text="FAVORITES"
-            android:textAlignment="center"
-            android:textColor="#0A3277"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="featured"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="382dp"
+                android:layout_height="40dp"
+                android:fontFamily="@font/baloo_bhaina"
+                android:text="FAVORITES"
+                android:textAlignment="center"
+                android:textColor="#0A3277"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favoritesRecycleView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </FrameLayout>

@@ -107,7 +107,7 @@
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="380dp"
-        android:layout_height="1000dp"
+        android:layout_height="500dp"
         android:background="@drawable/round_featured"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

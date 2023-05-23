@@ -11,43 +11,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHolder> {
 
     private List<ArtData> mList;
-    private CartAdapter.OnItemClickListener onItemClick;
+    private OnItemClickListener onItemClick;
 
     public interface OnItemClickListener {
         void onItemClick(ArtData cartData);
     }
 
-    public void setOnItemClickListener(CartAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         onItemClick = listener;
     }
 
     public CartAdapter(List<ArtData> mList) {
         this.mList = mList;
     }
-    public void setFilteredList(List<ArtData> mList){
+
+    public void setFilteredList(List<ArtData> mList) {
         this.mList = mList;
         notifyDataSetChanged();
     }
+
     public static class ArtImageViewHolder extends RecyclerView.ViewHolder {
         public final ImageView cartImage;
         public final TextView cartTitle;
         public final TextView cartPrice;
-
 
         public ArtImageViewHolder(View itemView) {
             super(itemView);
             cartImage = itemView.findViewById(R.id.cartImage);
             cartTitle = itemView.findViewById(R.id.cartTitle);
             cartPrice = itemView.findViewById(R.id.cartPrice);
-            View view = itemView;
-            view.setOnClickListener(view1 -> {
+
+            itemView.setOnClickListener(view -> {
                 Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
             });
         }
@@ -68,13 +68,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHo
                 .into(holder.cartImage);
 
         holder.cartTitle.setText(cartData.getTitle());
+        holder.cartPrice.setText(String.valueOf(cartData.getArtPrice()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onItemClick != null) {
-                    onItemClick.onItemClick(cartData);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onItemClick != null) {
+                onItemClick.onItemClick(cartData);
             }
         });
     }

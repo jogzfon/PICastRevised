@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +69,18 @@ public class Cart extends Fragment {
         totalView = view.findViewById(R.id.totalAmount);
 
         adapter = new CartAdapter(mList);
+        adapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ArtData artData) {
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Art", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("artTitle", artData.getTitle());
+                editor.apply();
+                Intent intent = new Intent(requireContext(), Product.class);
+                startActivity(intent);
+                Toast.makeText(requireContext(), "Clicked" + artData.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         addDataToList();
@@ -101,7 +114,7 @@ public class Cart extends Fragment {
                     double price = snapshot.child("price").getValue(Double.class);
                     int isCart = snapshot.child("isCart").getValue(Integer.class);
 
-                    ArtData artData = new ArtData(title, artImage, authorImage, artAuthor);
+                    ArtData artData = new ArtData(title, artImage, authorImage, artAuthor, price);
                     if (isCart == 1) {
                         mList.add(artData);
                         totalAmount += price;

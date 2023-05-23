@@ -44,6 +44,14 @@ public class ArtData implements Serializable {
         this.authorImage = authorImage;
     }
 
+    public ArtData(String title, String artImage, String authorImage, String artAuthor, double price) {
+        this.title = title;
+        this.artImage = artImage;
+        this.authorImage = authorImage;
+        this.author = artAuthor;
+        this.artPrice = price;
+    }
+
     public double getArtPriceUSD() {
         return artPrice * 0.018;
     }
