@@ -34,32 +34,40 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Button btnLogout = findViewById(R.id.btnLogOut);
         nName = findViewById(R.id.txtNickname);
-        firstName = findViewById(R.id.txtFirstname);
-        lastName = findViewById(R.id.txtLastname);
-        job = findViewById(R.id.txtJob);
-        bio = findViewById(R.id.txtBio);
+//        firstName = findViewById(R.id.txtFirstname);
+//        lastName = findViewById(R.id.txtLastname);
+//        job = findViewById(R.id.txtJob);
+//        bio = findViewById(R.id.txtBio);
         balance = findViewById(R.id.txtBalance);
         profile = findViewById(R.id.imgProfile);
+        Button btnLogout = findViewById(R.id.btnLogout);
 
         SharedPreferences sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
         String uname = sharedPreferences.getString("username", "");
-
+        System.out.println(uname);
         DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("UsersWithRegion").child(uname);
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    String fName = dataSnapshot.child("firstname").getValue(String.class);
-                    String lName = dataSnapshot.child("lastname").getValue(String.class);
-                    Double gBalance = dataSnapshot.child("balance").getValue(Double.class);
+                if (dataSnapshot.exists()) {
+                    String firstname = dataSnapshot.child("firstname").getValue(String.class);
+                    String lastname = dataSnapshot.child("lastname").getValue(String.class);
+                    String pJob = dataSnapshot.child("job").getValue(String.class);
+                    String pBio = dataSnapshot.child("bio").getValue(String.class);
+                    Double pBalance = dataSnapshot.child("balance").getValue(Double.class);
+                    String pProfile = dataSnapshot.child("profile").getValue(String.class);
 
-                    acc = new Account(fName, lName, gBalance);
-                    nName.setText(fName);
-                    firstName.setText(fName);
-                    lastName.setText(acc.getLastname());
-                    balance.setText(String.valueOf(acc.getBalance()));
+//                    acc = new Account(firstname, lastname, pBio, pProfile, pBalance);
+//                    nName.setText(acc.getFirstname());
+//                    firstName.setText(firstname);
+//                    lastName.setText(lastname);
+//                    job.setText(pJob);
+//                    bio.setText(pBio);
+                    balance.setText(String.valueOf(pBalance));
+                    Picasso.get().load(pProfile).into(profile);
+                }
             }
 
             @Override
