@@ -38,10 +38,10 @@
                 app:cornerRadius="10dp" />
 
             <Button
-                android:id="@+id/btnImgToGif"
+                android:id="@+id/btnPdfToPng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="image to gif converter"
+                android:text="pdf to png converter"
                 android:textColor="@color/white"
                 app:backgroundTint="#1BCDED"
                 app:cornerRadius="10dp" />

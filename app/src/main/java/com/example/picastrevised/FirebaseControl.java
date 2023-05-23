@@ -1,16 +1,11 @@
 package com.example.picastrevised;
 
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseControl {
@@ -30,12 +25,32 @@ public class FirebaseControl {
         artTitle = data.getTitle();
         myRef.child(artTitle).setValue(data);
     }
-    public void AddUser(Account acc){
-        DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        System.out.println("User Added Successfully!");
-        myRef = db.getReference("Users");
+    public boolean[] AddUser(Account acc){
+        myRef = db.getReference("UsersWithRegion");
         userName = acc.getUsername();
-        myRef.child(userName).setValue(acc);
+        final boolean[] added = new boolean[1];
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data : snapshot.getChildren()){
+                    if(data.child(userName).exists()){
+                        System.out.println("User already exists");
+                        added[0] = false;
+                    }else{
+                        myRef.child(userName).setValue(acc);
+                        myRef.child(userName).child("region").setValue(acc.getRegion());
+                        System.out.println("User Added Successfully!");
+                        added[0] = true;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return added;
     }
     public void AddToCart(ArtData art){
         DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("Cart");

@@ -7,12 +7,12 @@
     android:background="#7B7BEF"
     tools:context=".Registration"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="33dp">
+    tools:layout_editor_absoluteY="-58dp">
 
     <EditText
         android:id="@+id/editTextCreateUsername"
-        android:layout_width="317dp"
-        android:layout_height="52dp"
+        android:layout_width="303dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
@@ -26,8 +26,8 @@
 
     <EditText
         android:id="@+id/editTextCreateEmail"
-        android:layout_width="317dp"
-        android:layout_height="52dp"
+        android:layout_width="303dp"
+        android:layout_height="48dp"
         android:layout_marginTop="280dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_edittext"
@@ -58,6 +58,7 @@
         android:layout_width="209dp"
         android:layout_height="37dp"
         android:layout_marginStart="40dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/baloo_bhaina"
         android:text="Enter your password"
         android:textColor="#FFFFFF"
@@ -70,6 +71,7 @@
         android:layout_width="209dp"
         android:layout_height="37dp"
         android:layout_marginStart="40dp"
+        android:layout_marginBottom="4dp"
         android:fontFamily="@font/baloo_bhaina"
         android:text="Confirm Password"
         android:textColor="#FFFFFF"
@@ -77,11 +79,24 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextConfirmPassword"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="76dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="28dp"
+        android:fontFamily="@font/baloo_bhaina"
+        android:text="Region:"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister_CreateAccount"
+        app:layout_constraintEnd_toStartOf="@+id/spinRegion" />
+
     <EditText
         android:id="@+id/editTextCreatePassword"
-        android:layout_width="317dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="303dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="at least 6 characters"
@@ -94,9 +109,9 @@
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
-        android:layout_width="317dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="303dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="88dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="●●●●●●●●"
@@ -160,5 +175,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spinRegion"
+        android:layout_width="236dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
