@@ -47,22 +47,19 @@ public class Profile extends AppCompatActivity {
         String uname = sharedPreferences.getString("username", "");
 
         DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("UsersWithRegion");
+                .getReference("UsersWithRegion").child(uname);
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(uname)) {
-                    DataSnapshot userSnapshot = dataSnapshot.child(uname);
-                    String fName = userSnapshot.child("firstname").getValue(String.class);
-                    String lName = userSnapshot.child("lastname").getValue(String.class);
-                    Double gBalance = userSnapshot.child("balance").getValue(Double.class);
+                    String fName = dataSnapshot.child("firstname").getValue(String.class);
+                    String lName = dataSnapshot.child("lastname").getValue(String.class);
+                    Double gBalance = dataSnapshot.child("balance").getValue(Double.class);
 
                     acc = new Account(fName, lName, gBalance);
-                    nName.setText(acc.getFirstname());
-                    firstName.setText(acc.getFirstname());
+                    nName.setText(fName);
+                    firstName.setText(fName);
                     lastName.setText(acc.getLastname());
                     balance.setText(String.valueOf(acc.getBalance()));
-                }
             }
 
             @Override

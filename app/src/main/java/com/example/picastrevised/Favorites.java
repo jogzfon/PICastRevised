@@ -3,10 +3,21 @@ package com.example.picastrevised;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +34,10 @@ public class Favorites extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private ArrayList<ArtData> mList = new ArrayList<>();
+    private FavoritesAdapter adapter;
 
     public Favorites() {
         // Required empty public constructor
@@ -59,6 +74,44 @@ public class Favorites extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        recyclerView = view.findViewById(R.id.favoritesRecycleView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new FavoritesAdapter(mList);
+        recyclerView.setAdapter(adapter);
+        addDataToList();
+        return view;
+    }
+    private void addDataToList() {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference()
+                .child("ShopImages");
+
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String title = snapshot.getKey();
+                    String artImage = snapshot.child("imagekey").getValue(String.class);
+                    String authorImage = snapshot.child("authorImage").getValue(String.class);
+                    String artAuthor = snapshot.child("author").getValue(String.class);
+                    int isFavorite = snapshot.child("isFavorite").getValue(Integer.class);
+
+                    ArtData artData = new ArtData(title, artImage, authorImage, artAuthor);
+                    if (isFavorite == 1) {
+                        mList.add(artData);
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Shop", "Error retrieving data: " + databaseError.getMessage());
+            }
+        });
     }
 }

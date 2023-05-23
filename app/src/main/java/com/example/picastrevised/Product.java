@@ -37,7 +37,7 @@ public class Product extends AppCompatActivity {
         ImageView imgProduct = findViewById(R.id.imgProduct);
 
         Button btnAdd = findViewById(R.id.btnAddToCart);
-
+        Button btnAddToFav = findViewById(R.id.btnAddToFavorites);
 
         // Retrieve the stored artTitle from SharedPreferences
         SharedPreferences sharedPreferences1 = getSharedPreferences("Art", MODE_PRIVATE);
@@ -83,6 +83,13 @@ public class Product extends AppCompatActivity {
             }
         });
         btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseControl firebaseControl = new FirebaseControl();
+                firebaseControl.AddToCart(cartData);
+            }
+        });
+        btnAddToFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseControl firebaseControl = new FirebaseControl();
