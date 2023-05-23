@@ -52,7 +52,7 @@ public class Cart extends Fragment {
     private ArrayList<ArtData> mList = new ArrayList<>();
     private CartAdapter adapter;
     private TextView totalView;
-    private double totalAmount = 0;
+    public double totalAmount = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
