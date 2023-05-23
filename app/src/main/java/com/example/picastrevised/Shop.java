@@ -1,5 +1,6 @@
 package com.example.picastrevised;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
@@ -85,9 +86,18 @@ public class Shop extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         recyclerView = view.findViewById(R.id.shopRecycleView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3)); // Set grid layout manager with 3 columns
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3)); // Set grid layout manager with 3 columns
         addDataToList();
         adapter = new ShopAdapter(mList);
+        adapter.setOnItemClickListener(new ShopAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ArtData artData) {
+                Intent intent = new Intent(requireContext(), Product.class);
+                intent.putExtra("art", artData);
+                startActivity(intent);
+                Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerView.setAdapter(adapter);
         return view;
 

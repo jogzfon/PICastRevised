@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cartRecycleView"
+                android:id="@+id/featuredRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,11 +45,11 @@
                 android:fontFamily="@font/baloo_bhaina"
                 android:text="TOTAL:"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView24"
-                app:layout_constraintTop_toBottomOf="@+id/cartRecycleView" />
+                app:layout_constraintEnd_toStartOf="@+id/totalAmount"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/totalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
@@ -58,7 +58,7 @@
                 android:text="P1000.00"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/button3"
-                app:layout_constraintTop_toBottomOf="@+id/cartRecycleView" />
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
 
             <Button
                 android:id="@+id/button3"
@@ -68,7 +68,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="Check Out"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartRecycleView"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

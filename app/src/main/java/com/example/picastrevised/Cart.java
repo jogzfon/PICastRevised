@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,15 +71,19 @@ public class Cart extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<CartData> mList = new ArrayList<>();
     private CartAdapter adapter;
+    TextView totalView;
+    private double totalAmount = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_cart, container, false);
-        recyclerView = view.findViewById(R.id.cartRecycleView);
+        recyclerView = view.findViewById(R.id.featuredRecycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         addDataToList();
+        totalView = view.findViewById(R.id.totalAmount);
+        totalView.setText(totalAmount+"");
         adapter = new CartAdapter(mList);
         recyclerView.setAdapter(adapter);
         return view;
@@ -100,6 +105,7 @@ public class Cart extends Fragment {
                     String user = snapshot.child("user").getValue(String.class);
                     String author = snapshot.child("author").getValue(String.class);
                     double artPrice = snapshot.child("artPrice").getValue(Integer.class);
+                    totalAmount += artPrice;
 
                     CartData cartData = new CartData(imgTitle, artImage, artPrice, author, user);
                     SharedPreferences sp = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);

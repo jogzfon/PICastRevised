@@ -1,5 +1,7 @@
 package com.example.picastrevised;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener{
-    private RecyclerView recyclerView;
+public class HomePage extends AppCompatActivity implements View.OnClickListener {
+    private RecyclerView recyclerView,fRecyclerView, sRecyclerView;
     private SearchView searchView;
 
     private ArrayList<ArtData> mList = new ArrayList<ArtData>();
@@ -47,8 +49,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +58,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_homepage);
 
         replacementFragment(new Featured());
-        //Drawer Nav
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        //Conversion Buttons
 
         //Bottom Nav
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -76,6 +72,15 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addDataToList();
         adapter = new ArtAdapter(mList);
+        adapter.setOnItemClickListener(new ArtAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ArtData artData) {
+                Intent intent = new Intent(HomePage.this, Product.class);
+                intent.putExtra("art", artData);
+                startActivity(intent);
+                Toast.makeText(HomePage.this, "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         recyclerView.setVisibility(View.GONE);
@@ -122,15 +127,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             }
         });
     }
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
-            super.onBackPressed();
-        }
-    }
     private void filterList(String query){
         if(query != null){
             ArrayList<ArtData> filteredList = new ArrayList<ArtData>();
@@ -176,7 +172,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             }
         });
     }
-    private void replacementFragment(Fragment fragment){
+    public void replacementFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_layout, fragment);
@@ -196,8 +192,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 openCamera();
                 break;
             case R.id.cardView:
-                TextView featuredArtTitle = findViewById(R.id.featuredTitle);
-                Toast.makeText(this, featuredArtTitle.getText(), Toast.LENGTH_SHORT).show();
+//                TextView featuredArtTitle = findViewById(R.id.featuredTitle);
+//                Toast.makeText(this, featuredArtTitle.getText(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

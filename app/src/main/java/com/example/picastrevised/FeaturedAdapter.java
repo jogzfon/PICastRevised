@@ -1,7 +1,6 @@
 package com.example.picastrevised;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,27 +18,34 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.FeaturedImageViewHolder> {
-
     private List<ArtData> mList;
+    private OnItemClickListener onItemClick;
 
-    public FeaturedAdapter(List<ArtData> mList) {
-        if (mList == null) {
-            throw new IllegalArgumentException("List cannot be null");
-        }
-        this.mList = mList;
+    public interface OnItemClickListener {
+        void onItemClick(ArtData artData);
     }
 
-    public void setFilteredList(List<ArtData> mList){
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClick = listener;
+    }
+
+    public FeaturedAdapter(List<ArtData> list) {
+        if (list == null) {
+            throw new IllegalArgumentException("List cannot be null");
+        }
+        mList = list;
+    }
+
+    public void setFilteredList(List<ArtData> mList) {
         this.mList = mList;
         notifyDataSetChanged();
     }
 
-    public static class FeaturedImageViewHolder extends RecyclerView.ViewHolder {
+    public class FeaturedImageViewHolder extends RecyclerView.ViewHolder {
         public final ImageView featuredArtImage;
         public final ImageView featuredAuthorImage;
         public final TextView featuredArtTitle;
         public final TextView featuredAuthorName;
-
 
         public FeaturedImageViewHolder(View itemView) {
             super(itemView);
@@ -47,22 +53,27 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             featuredArtTitle = itemView.findViewById(R.id.featuredTitle);
             featuredAuthorName = itemView.findViewById(R.id.featuredAuthorName);
             featuredAuthorImage = itemView.findViewById(R.id.featuredAuthorImage);
-            itemView.setOnClickListener(view -> {
-                //store image in a bitmap variable
-                BitmapDrawable drawable = (BitmapDrawable) featuredArtImage.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Store image in a bitmap variable
+                    BitmapDrawable drawable = (BitmapDrawable) featuredArtImage.getDrawable();
+                    Bitmap bitmap = drawable.getBitmap();
+                    Toast.makeText(itemView.getContext(), "Image clicked!", Toast.LENGTH_SHORT).show();
+                }
             });
         }
     }
 
+    @NonNull
     @Override
-    public FeaturedImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeaturedImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_featuredart, parent, false);
-        return new FeaturedAdapter.FeaturedImageViewHolder(view);
+        return new FeaturedImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FeaturedImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FeaturedImageViewHolder holder, int position) {
         ArtData artData = mList.get(position);
         Glide.with(holder.itemView)
                 .load(artData.getArtImage())
@@ -76,20 +87,18 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.featuredAuthorImage);
 
-        holder.itemView.setOnClickListener(view -> {
-            ArtData artData1 = mList.get(holder.getAdapterPosition());
-
-//            BitmapDrawable drawable = (BitmapDrawable) holder.featuredArtImage.getDrawable();
-//            Bitmap bitmap = drawable.getBitmap();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClick != null) {
+                    onItemClick.onItemClick(artData);
+                }
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mList != null ? mList.size() : 0;
-    }
-
-    public void setLayoutManager(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        return mList.size();
     }
 }

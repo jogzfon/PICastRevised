@@ -18,6 +18,15 @@ import java.util.List;
 public class ArtAdapter extends RecyclerView.Adapter<ArtAdapter.ArtImageViewHolder> {
 
     private List<ArtData> mList;
+    private ArtAdapter.OnItemClickListener onItemClick;
+
+    public interface OnItemClickListener {
+        void onItemClick(ArtData artData);
+    }
+
+    public void setOnItemClickListener(ArtAdapter.OnItemClickListener listener) {
+        onItemClick = listener;
+    }
 
     public ArtAdapter(List<ArtData> mList) {
         this.mList = mList;
@@ -49,9 +58,18 @@ public class ArtAdapter extends RecyclerView.Adapter<ArtAdapter.ArtImageViewHold
 
     @Override
     public void onBindViewHolder(ArtImageViewHolder holder, int position) {
+        ArtData artData = mList.get(position);
         Picasso.get().load(mList.get(position).getArtImage()).into(holder.artImage);
         //holder.artImage.setImageResource(mList.get(position).getArtImage()));
         holder.titleTv.setText(mList.get(position).getTitle());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClick != null) {
+                    onItemClick.onItemClick(artData);
+                }
+            }
+        });
     }
 
     @Override

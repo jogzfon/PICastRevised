@@ -1,6 +1,8 @@
 package com.example.picastrevised;
 
-public class ArtData {
+import java.io.Serializable;
+
+public class ArtData implements Serializable {
 
     private String title;
     private String artImage;

@@ -20,14 +20,18 @@ import java.util.List;
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopImageViewHolder> {
 
     private List<ArtData> mList;
+    private OnItemClickListener onItemClick;
+
+    public interface OnItemClickListener {
+        void onItemClick(ArtData artData);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClick = listener;
+    }
 
     public ShopAdapter(List<ArtData> mList) {
         this.mList = mList;
-    }
-
-    public void setFilteredList(List<ArtData> mList){
-        this.mList = mList;
-        notifyDataSetChanged();
     }
 
     public static class ShopImageViewHolder extends RecyclerView.ViewHolder {
@@ -38,9 +42,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopImageViewH
             super(itemView);
             shopArtImage = itemView.findViewById(R.id.shopArtImage);
             shopArtTitle = itemView.findViewById(R.id.shopArtTitle);
-            shopArtImage.setOnClickListener(view -> {
-                Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
-            });
         }
     }
 
@@ -57,17 +58,20 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopImageViewH
                 .load(artData.getArtImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.shopArtImage);
-//        holder.shopArtImage.setImageResource(artData.getArtImage());
+
         holder.shopArtTitle.setText(artData.getTitle());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClick != null) {
+                    onItemClick.onItemClick(artData);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
-    }
-
-    // Set up grid layout manager with 3 columns
-    public void setLayoutManager(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 3));
     }
 }
