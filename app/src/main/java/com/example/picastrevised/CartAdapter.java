@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,6 +18,15 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHolder> {
 
     private List<CartData> mList;
+    private CartAdapter.OnItemClickListener onItemClick;
+
+    public interface OnItemClickListener {
+        void onItemClick(CartData cartData);
+    }
+
+    public void setOnItemClickListener(CartAdapter.OnItemClickListener listener) {
+        onItemClick = listener;
+    }
 
     public CartAdapter(List<CartData> mList) {
         this.mList = mList;
@@ -25,13 +36,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHo
         notifyDataSetChanged();
     }
     public static class ArtImageViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView artImage;
-        public final TextView titleTv;
+        public final ImageView cartImage;
+        public final TextView cartTitle;
+        public final TextView cartPrice;
+
 
         public ArtImageViewHolder(View itemView) {
             super(itemView);
-            artImage = itemView.findViewById(R.id.artImage);
-            titleTv = itemView.findViewById(R.id.artTitle);
+            cartImage = itemView.findViewById(R.id.cartImage);
+            cartTitle = itemView.findViewById(R.id.cartTitle);
+            cartPrice = itemView.findViewById(R.id.cartPrice);
             View view = itemView;
             view.setOnClickListener(view1 -> {
                 Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
@@ -41,15 +55,28 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHo
 
     @Override
     public ArtImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_art_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_cart_item, parent, false);
         return new ArtImageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ArtImageViewHolder holder, int position) {
-        Picasso.get().load(mList.get(position).getArtImage()).into(holder.artImage);
-        //holder.artImage.setImageResource(mList.get(position).getArtImage()));
-        holder.titleTv.setText(mList.get(position).getTitle());
+        CartData cartData = mList.get(position);
+        Glide.with(holder.itemView)
+                .load(cartData.getArtImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.cartImage);
+
+        holder.cartTitle.setText(cartData.getTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClick != null) {
+                    onItemClick.onItemClick(cartData);
+                }
+            }
+        });
     }
 
     @Override

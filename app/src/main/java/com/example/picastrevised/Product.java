@@ -30,6 +30,7 @@ public class Product extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
         TextView imgTitle = findViewById(R.id.imgTitle);
+        TextView price = findViewById(R.id.txtprice);
         ImageView imgProduct = findViewById(R.id.imgProduct);
 
         // Retrieve the stored artTitle from SharedPreferences
@@ -49,10 +50,12 @@ public class Product extends AppCompatActivity {
                         String artImage = snapshot.child("imagekey").getValue(String.class);
                         String authorImage = snapshot.child("authorImage").getValue(String.class);
                         String artAuthor = snapshot.child("author").getValue(String.class);
+                        Double artPrice = snapshot.child("price").getValue(Double.class);
 
                         artData = new ArtData(artTitle, artImage, authorImage, artAuthor);
                         Picasso.get().load(artData.getArtImage()).into(imgProduct);
                         imgTitle.setText(artData.getTitle());
+                        price.setText("P "+artPrice);
                         break;
                     }
                 }
