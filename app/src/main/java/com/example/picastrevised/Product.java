@@ -92,8 +92,13 @@ public class Product extends AppCompatActivity {
         btnAddToFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseControl firebaseControl = new FirebaseControl();
-                firebaseControl.AddToCart(cartData);
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app");
+                DatabaseReference shopImagesRef = database.getReference("ShopImages");
+                TextView title = findViewById(R.id.imgTitle);
+                DatabaseReference adventOfLightRef = shopImagesRef.child(title.getText().toString());
+
+                adventOfLightRef.child("isFavorite").setValue(1);
+                Toast.makeText(Product.this, "Added to Favorites", Toast.LENGTH_SHORT).show();
             }
         });
     }
