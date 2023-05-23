@@ -15,14 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cartRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="382dp"
@@ -36,43 +28,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/featuredRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartRecyclerView">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/baloo_bhaina"
-                    android:text="TOTAL:"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/baloo_bhaina"
+                android:text="TOTAL:"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/totalAmount"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
 
-                <TextView
-                    android:id="@+id/totalAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="P1000.00"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/totalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="P1000.00"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/button3"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView" />
 
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="0dp"
-                    android:text="Check Out"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="Check Out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/featuredRecycleView"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </FrameLayout>

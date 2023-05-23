@@ -62,6 +62,7 @@ public class Payment extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
 
         amountEdt = findViewById(R.id.idEdtAmount);
+        amountEdt.setText(String.valueOf(Cart.totalAmount));
         Button makePaymentBtn = findViewById(R.id.idBtnPay);
         paymentTV = findViewById(R.id.idTVStatus);
 

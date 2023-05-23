@@ -17,21 +17,21 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHolder> {
 
-    private List<ArtData> mList;
+    private List<CartData> mList;
     private CartAdapter.OnItemClickListener onItemClick;
 
     public interface OnItemClickListener {
-        void onItemClick(ArtData artData);
+        void onItemClick(CartData cartData);
     }
 
     public void setOnItemClickListener(CartAdapter.OnItemClickListener listener) {
         onItemClick = listener;
     }
 
-    public CartAdapter(List<ArtData> mList) {
+    public CartAdapter(List<CartData> mList) {
         this.mList = mList;
     }
-    public void setFilteredList(List<ArtData> mList){
+    public void setFilteredList(List<CartData> mList){
         this.mList = mList;
         notifyDataSetChanged();
     }
@@ -61,7 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ArtImageViewHo
 
     @Override
     public void onBindViewHolder(ArtImageViewHolder holder, int position) {
-        ArtData cartData = mList.get(position);
+        CartData cartData = mList.get(position);
         Glide.with(holder.itemView)
                 .load(cartData.getArtImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

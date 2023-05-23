@@ -49,14 +49,9 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
                         if(confirmPassword.getText().toString().equals(password) && (!password.isEmpty() && !confirmPassword.getText().toString().isEmpty())) {
                             Account acc = new Account(username, password, email, region);
                             FirebaseControl firebaseControl = new FirebaseControl();
-                            boolean[] succ = firebaseControl.AddUser(acc);
-                            if(succ[0] == true) {
-                                Toast.makeText(this, "Account successfully created!", Toast.LENGTH_SHORT).show();
-                                BackToLogIn();
-                            }else {
-                                Toast.makeText(this, "Username is already taken", Toast.LENGTH_SHORT).show();
-                                newUsername.setText("");
-                            }
+                            firebaseControl.AddUser(acc);
+                            Toast.makeText(this, "Account successfully created!", Toast.LENGTH_SHORT).show();
+                            BackToLogIn();
                         } else
                             Toast.makeText(this, "Password does not match", Toast.LENGTH_SHORT).show();
                     } else
