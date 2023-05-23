@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +28,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,23 +42,24 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
     ImageView imageView;
     Button startConversion, selectImage;
     Bitmap bitmap;
-    boolean toPdf, toPng, toJpg;
+    boolean toPdf, toPng, toJpg, PdfToPng;
+    File pdfFile;
     private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
        if(result.getResultCode() == Activity.RESULT_OK){
-           Uri photoUri = result.getData().getData();
-           String[] filePathColumn = {MediaStore.Images.Media.DATA};
+               Uri photoUri = result.getData().getData();
+               String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-           Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(photoUri, filePathColumn, null, null, null);
-           cursor.moveToFirst();
+               Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(photoUri, filePathColumn, null, null, null);
+               cursor.moveToFirst();
 
-           int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-           String filePath = cursor.getString(columnIndex);
-           cursor.close();
+               int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+               String filePath = cursor.getString(columnIndex);
+               cursor.close();
 
-           bitmap = BitmapFactory.decodeFile(filePath);
-           imageView.setImageBitmap(bitmap);
-           startConversion.setClickable(true);
-           startConversion.setEnabled(true);
+               bitmap = BitmapFactory.decodeFile(filePath);
+               imageView.setImageBitmap(bitmap);
+               startConversion.setClickable(true);
+               startConversion.setEnabled(true);
        }
     });
 
@@ -64,9 +69,8 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
     private static final String ARG_PARAM4 = "param4";
-
     // TODO: Rename and change types of parameters
-    private int buttonIdPressed, btnImg2PdfID, btnJpg2PngID, btnPng2JpgID;
+    private int buttonIdPressed, btnImg2PdfID, btnJpg2PngID, btnPng2JpgID, btnPdf2PngID;
 
     public Converter_Conversion() {
         // Required empty public constructor
@@ -108,7 +112,7 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
                 toPng = true;
                 Toast.makeText(getActivity(), "PNG Conversion", Toast.LENGTH_SHORT).show();
             }
-            else {
+            else{
                 toJpg = true;
                 Toast.makeText(getActivity(), "JPG Conversion", Toast.LENGTH_SHORT).show();
             }
@@ -156,7 +160,7 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
-    private void createPng(){
+    private void convertPng(){
         int num = 0;
         File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "PICasT_PNG_converts");
         if(!root.exists())
@@ -215,21 +219,44 @@ public class Converter_Conversion extends Fragment implements View.OnClickListen
         }
         pdfDocument.close();
     }
+
+    private boolean bitmapIsBlankOrWhite(Bitmap bm){ //helper function to determine if there really is a bitmap or not
+        if(bm == null)
+            return true;
+
+        int w = bm.getWidth();
+        int h = bm.getHeight();
+        for(int i=0; i<w; i++){
+            for(int j=0; j<h; i++){
+                int pixel = bm.getPixel(i, j);
+                if(pixel!=Color.WHITE)
+                    return false;
+            }
+        }
+        return true;
+    }
     /*-----Conversion functions end-----*/
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnSelectImage:
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent;
+                if(PdfToPng){
+                    intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                }else
+                    intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
                 launcher.launch(intent);
                 break;
             case R.id.btnStartConversion:
                 if(toPdf)
                     createPdf();
                 else if(toPng)
-                    createPng();
-                else
+                    convertPng();
+                else if(toJpg)
                     createJpg();
         }
     }
