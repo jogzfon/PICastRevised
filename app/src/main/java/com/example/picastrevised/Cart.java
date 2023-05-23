@@ -78,7 +78,7 @@ public class Cart extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_cart, container, false);
-        recyclerView = view.findViewById(R.id.featuredRecycleView);
+        recyclerView = view.findViewById(R.id.cartRecycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         addDataToList();
@@ -105,6 +105,7 @@ public class Cart extends Fragment {
                     String user = snapshot.child("user").getValue(String.class);
                     String author = snapshot.child("author").getValue(String.class);
                     Double artPrice = snapshot.child("artPrice").getValue(Double.class);
+                    totalAmount += artPrice;
 
                     CartData cartData = new CartData(imgTitle, artImage, artPrice, author, user);
                     SharedPreferences sp = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
