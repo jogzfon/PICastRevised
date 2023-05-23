@@ -76,7 +76,7 @@
             android:layout_marginBottom="30dp">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnAddToCart"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
                 android:text="Add To Cart"

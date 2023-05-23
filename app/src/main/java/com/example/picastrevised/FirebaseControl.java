@@ -54,9 +54,15 @@ public class FirebaseControl {
         });
         return added;
     }
-    public void AddToCart(ArtData art){
+//    public void AddToCart(CartData cart){
+//        db = FirebaseDatabase.getInstance();
+//        myRef = db.getReference("Cart");
+//        artTitle = cart.getTitle();
+//        myRef.child(artTitle).setValue(cart);
+//    }
+    public void AddToCart(CartData cart){
         myRef = db.getReference("Cart");
-        itemName = art.getTitle();
+        itemName = cart.getTitle();
         DatabaseReference priceRef = db.getReference("ShopImages").child(itemName);
         final double[] price = new double[1];
         priceRef.addValueEventListener(new ValueEventListener() {
@@ -70,15 +76,15 @@ public class FirebaseControl {
 
             }
         });
-        art.setArtPrice(price[0]);
+        cart.setArtPrice(price[0]);
         if(Login.region == "United States")
-            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPriceUSD());
+            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceUSD());
         else if(Login.region == "Japan")
-            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPriceJPY());
+            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceJPY());
         else if(Login.region == "Singapore")
-            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPriceSGD());
+            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceSGD());
         else
-            myRef.child(Login.globalUsername).child(itemName).setValue(art.getArtPrice());
+            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPrice());
 
         System.out.println("Item added to Cart!");
     }
