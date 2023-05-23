@@ -57,8 +57,6 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
                 @Override
                 public void onClick(View view) {
                     // Store image in a bitmap variable
-                    BitmapDrawable drawable = (BitmapDrawable) featuredArtImage.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
                     Toast.makeText(itemView.getContext(), "Image clicked!", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -88,6 +86,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
                 .into(holder.featuredAuthorImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 if (onItemClick != null) {

@@ -64,11 +64,22 @@ public class FirebaseControl {
         myRef = db.getReference("Cart");
         itemName = cart.getTitle();
         DatabaseReference priceRef = db.getReference("ShopImages").child(itemName);
-        final double[] price = new double[1];
         priceRef.addValueEventListener(new ValueEventListener() {
+            double price;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                price[0] = snapshot.child("price").getValue(Double.class);
+                price = snapshot.child("price").getValue(Double.class);
+                cart.setArtPrice(price);
+                if(Login.region == "United States")
+                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceUSD());
+                else if(Login.region == "Japan")
+                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceJPY());
+                else if(Login.region == "Singapore")
+                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceSGD());
+                else
+                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPrice());
+
+                System.out.println("Item added to Cart!");
             }
 
             @Override
@@ -76,16 +87,5 @@ public class FirebaseControl {
 
             }
         });
-        cart.setArtPrice(price[0]);
-        if(Login.region == "United States")
-            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceUSD());
-        else if(Login.region == "Japan")
-            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceJPY());
-        else if(Login.region == "Singapore")
-            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceSGD());
-        else
-            myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPrice());
-
-        System.out.println("Item added to Cart!");
     }
 }

@@ -60,12 +60,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopImageViewH
                 .into(holder.shopArtImage);
 
         holder.shopArtTitle.setText(artData.getTitle());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onItemClick != null) {
-                    onItemClick.onItemClick(artData);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onItemClick != null) {
+                onItemClick.onItemClick(artData);
             }
         });
     }

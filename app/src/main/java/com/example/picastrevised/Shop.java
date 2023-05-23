@@ -91,17 +91,14 @@ public class Shop extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3)); // Set grid layout manager with 3 columns
         addDataToList();
         adapter = new ShopAdapter(mList);
-        adapter.setOnItemClickListener(new ShopAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(ArtData artData) {
-                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Art", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("artTitle", artData.getTitle());
-                editor.apply();
-                Intent intent = new Intent(requireContext(), Product.class);
-                startActivity(intent);
-                Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show();
-            }
+        adapter.setOnItemClickListener(artData -> {
+            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Art", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("artTitle", artData.getTitle());
+            editor.apply();
+            Intent intent = new Intent(requireContext(), Product.class);
+            startActivity(intent);
+            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show();
         });
         recyclerView.setAdapter(adapter);
         return view;

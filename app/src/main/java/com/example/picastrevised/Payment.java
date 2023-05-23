@@ -68,7 +68,6 @@ public class Payment extends AppCompatActivity {
         makePaymentBtn.setOnClickListener(view -> {
             getPayment();
         });
-        Toast.makeText(this, Login.region, Toast.LENGTH_SHORT).show();
     }
 
     private void getPayment(){
