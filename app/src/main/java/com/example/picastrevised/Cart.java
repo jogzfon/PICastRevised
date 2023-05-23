@@ -89,22 +89,20 @@ public class Cart extends Fragment {
         return view;
     }
     private void addDataToList(){
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Cart");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Cart").child(Login.globalUsername);
 
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Clear the list before adding new data
                 mList.clear();
-
+                String parentKey = dataSnapshot.getKey();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String title = snapshot.getKey();
-                    System.out.println();
-                    String imgTitle = snapshot.child("title").getValue(String.class);
+                    String imgTitle = snapshot.child("artName").getValue(String.class);
                     String artImage = snapshot.child("artImage").getValue(String.class);
-                    String user = snapshot.child("user").getValue(String.class);
+                    String user = Login.globalUsername;
                     String author = snapshot.child("author").getValue(String.class);
-                    double artPrice = snapshot.child("artPrice").getValue(Integer.class);
+                    double artPrice = snapshot.child("artPrice").getValue(Double.class);
                     totalAmount += artPrice;
 
                     CartData cartData = new CartData(imgTitle, artImage, artPrice, author, user);
@@ -112,10 +110,13 @@ public class Cart extends Fragment {
 
                     // Retrieve the username from SharedPreferences
                     String username =sp.getString("name", "");
-                    System.out.println(username);
                     if(user=="username"){
                         mList.add(cartData);
                     }
+                    System.out.println(imgTitle);
+                    System.out.println(artImage);
+                    System.out.println(author);
+                    System.out.println(artPrice);
                 }
                 adapter.notifyDataSetChanged();
             }

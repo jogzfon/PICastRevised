@@ -61,27 +61,34 @@ public class FirebaseControl {
 //        myRef.child(artTitle).setValue(cart);
 //    }
     public void AddToCart(CartData cart){
-        myRef = db.getReference("Cart");
         itemName = cart.getTitle();
         DatabaseReference priceRef = db.getReference("ShopImages").child(itemName);
         priceRef.addValueEventListener(new ValueEventListener() {
             double price;
+            String author;
+            DatabaseReference myRef = db.getReference("Cart").child(Login.globalUsername).push();
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 price = snapshot.child("price").getValue(Double.class);
+                author = snapshot.child("author").getValue(String.class);
                 cart.setArtPrice(price);
                 if(Login.region.equals("United States")) {
-                    myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
+                    myRef.child(itemName).child("artImage").setValue(cart.getArtImage());
+                    myRef.child(Login.globalUsername).child(itemName).child("author").setValue(author);
                     myRef.child(Login.globalUsername).child(itemName).child("artPrice").setValue(cart.getArtPriceUSD());
                 }else if(Login.region.equals("Japan")) {
                     myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
-                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceJPY());
+                    myRef.child(Login.globalUsername).child(itemName).child("author").setValue(author);
+                    myRef.child(Login.globalUsername).child(itemName).child("artPrice").setValue(cart.getArtPriceJPY());
                 }else if(Login.region.equals("Singapore")) {
                     myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
-                    myRef.child(Login.globalUsername).child(itemName).setValue(cart.getArtPriceSGD());
+                    myRef.child(Login.globalUsername).child(itemName).child("author").setValue(author);
+                    myRef.child(Login.globalUsername).child(itemName).child("artPrice").setValue(cart.getArtPriceSGD());
                 }else {
-                    myRef.child(Login.globalUsername).child(itemName).child("artImage").setValue(cart.getArtImage());
-                    myRef.child(Login.globalUsername).child(itemName).child("artPrice").setValue(cart.getArtPrice());
+                    myRef.child("artName").setValue(cart.getTitle());
+                    myRef.child("artImage").setValue(cart.getArtImage());
+                    myRef.child("author").setValue(cart.getAuthor());
+                    myRef.child("artPrice").setValue(cart.getArtPrice());
                 }
                 System.out.println("Item added to Cart!");
             }
