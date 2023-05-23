@@ -104,7 +104,7 @@ public class Cart extends Fragment {
                     String artImage = snapshot.child("artImage").getValue(String.class);
                     String user = snapshot.child("user").getValue(String.class);
                     String author = snapshot.child("author").getValue(String.class);
-                    double artPrice = snapshot.child("artPrice").getValue(Integer.class);
+                    Double artPrice = snapshot.child("artPrice").getValue(Double.class);
                     totalAmount += artPrice;
 
                     CartData cartData = new CartData(imgTitle, artImage, artPrice, author, user);
