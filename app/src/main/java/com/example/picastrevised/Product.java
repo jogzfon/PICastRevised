@@ -37,7 +37,7 @@ public class Product extends AppCompatActivity {
         ImageView imgProduct = findViewById(R.id.imgProduct);
 
         Button btnAdd = findViewById(R.id.btnAddToCart);
-
+        Button btnAddToFav = findViewById(R.id.btnAddToFavorites);
 
         // Retrieve the stored artTitle from SharedPreferences
         SharedPreferences sharedPreferences1 = getSharedPreferences("Art", MODE_PRIVATE);
@@ -87,6 +87,18 @@ public class Product extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseControl firebaseControl = new FirebaseControl();
                 firebaseControl.AddToCart(cartData);
+            }
+        });
+        btnAddToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app");
+                DatabaseReference shopImagesRef = database.getReference("ShopImages");
+                TextView title = findViewById(R.id.imgTitle);
+                DatabaseReference adventOfLightRef = shopImagesRef.child(title.getText().toString());
+
+                adventOfLightRef.child("isFavorite").setValue(1);
+                Toast.makeText(Product.this, "Added to Favorites", Toast.LENGTH_SHORT).show();
             }
         });
     }
