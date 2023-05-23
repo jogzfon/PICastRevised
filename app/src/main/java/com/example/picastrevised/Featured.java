@@ -1,6 +1,8 @@
 package com.example.picastrevised;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,10 +49,13 @@ public class Featured extends Fragment {
         adapter.setOnItemClickListener(new FeaturedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ArtData artData) {
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Art", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("artTitle", artData.getTitle());
+                editor.apply();
                 Intent intent = new Intent(requireContext(), Product.class);
-                intent.putExtra("art", artData);
                 startActivity(intent);
-                Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Clicked" + artData.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setAdapter(adapter);
