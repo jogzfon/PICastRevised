@@ -76,7 +76,7 @@ public class Login extends AppCompatActivity {
                     }else{
                         if(tempPassword.equals(upass)){
                             SharedPreferences.Editor editor = sp.edit();
-                            editor.putString("name", uname);
+                            editor.putString("username", uname);
                             editor.commit();
                             region = dataSnapshot.child("region").getValue(String.class);
                             globalUsername = tempUserName;

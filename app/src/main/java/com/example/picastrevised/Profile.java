@@ -1,16 +1,18 @@
 package com.example.picastrevised;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,66 +22,75 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class Profile extends AppCompatActivity {
+    SharedPreferences sp;
     TextView nName;
-    TextView firstName;
-    TextView lastName;
-    TextView job;
+    TextView email;
+    TextView occupation;
     TextView bio;
-    TextView balance;
+    TextView region;
     ImageView profile;
-    private Account acc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         setContentView(R.layout.activity_profile);
 
         nName = findViewById(R.id.txtNickname);
-//        firstName = findViewById(R.id.txtFirstname);
-//        lastName = findViewById(R.id.txtLastname);
-//        job = findViewById(R.id.txtJob);
-//        bio = findViewById(R.id.txtBio);
-        balance = findViewById(R.id.txtBalance);
+        email = findViewById(R.id.txtEmail);
+        occupation = findViewById(R.id.txtOccupation);
+        region =    findViewById(R.id.txtRegion);
         profile = findViewById(R.id.imgProfile);
+        bio = findViewById(R.id.txtBio);
         Button btnLogout = findViewById(R.id.btnLogout);
+        ImageButton btnBack = findViewById(R.id.imgBtnBack);
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String uname = sp.getString("username","");
+        nName.setText(uname);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
-        String uname = sharedPreferences.getString("username", "");
-        System.out.println(uname);
         DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("UsersWithRegion").child(uname);
+                .getReference()
+                .child("UsersWithRegion");
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String firstname = dataSnapshot.child("firstname").getValue(String.class);
-                    String lastname = dataSnapshot.child("lastname").getValue(String.class);
-                    String pJob = dataSnapshot.child("job").getValue(String.class);
-                    String pBio = dataSnapshot.child("bio").getValue(String.class);
-                    Double pBalance = dataSnapshot.child("balance").getValue(Double.class);
-                    String pProfile = dataSnapshot.child("profile").getValue(String.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String imgtitle = snapshot.getKey();
+                    if (imgtitle.equals(uname)) {
+                        String image = snapshot.child("profile").getValue(String.class);
+                        String em = snapshot.child("email").getValue(String.class);
+                        String biot = snapshot.child("bio").getValue(String.class);
+                        String rg = snapshot.child("region").getValue(String.class);
+                        String job = snapshot.child("occupation").getValue(String.class);
 
-//                    acc = new Account(firstname, lastname, pBio, pProfile, pBalance);
-//                    nName.setText(acc.getFirstname());
-//                    firstName.setText(firstname);
-//                    lastName.setText(lastname);
-//                    job.setText(pJob);
-//                    bio.setText(pBio);
-                    balance.setText(String.valueOf(pBalance));
-                    Picasso.get().load(pProfile).into(profile);
+                        bio.setText(biot);
+                        region.setText(rg);
+                        email.setText(em);
+                        occupation.setText(job);
+                        Picasso.get().load(image).into(profile);
+
+                    }
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("Profile", "Error retrieving data: " + databaseError.getMessage());
+                Log.e("Shop", "Error retrieving data: " + databaseError.getMessage());
             }
         });
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, HomePage.class);
                 startActivity(intent);
                 finish();
             }

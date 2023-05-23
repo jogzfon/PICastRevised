@@ -1,7 +1,6 @@
 package com.example.picastrevised;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -71,58 +69,51 @@ public class Cart extends Fragment {
         }
     }
     private RecyclerView recyclerView;
-    private ArrayList<ArtData> mList = new ArrayList<>();
+    private ArrayList<CartData> mList = new ArrayList<>();
     private CartAdapter adapter;
     TextView totalView;
-    Button btnBuy;
-    public static double totalAmount = 0;
+    private double totalAmount = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_cart, container, false);
-        recyclerView = view.findViewById(R.id.cartRecycleView);
+        recyclerView = view.findViewById(R.id.featuredRecycleView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new CartAdapter(mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        addDataToList();
         totalView = view.findViewById(R.id.totalAmount);
         totalView.setText(totalAmount+"");
-        btnBuy = view.findViewById(R.id.btnCheckout);
+        adapter = new CartAdapter(mList);
         recyclerView.setAdapter(adapter);
-        btnBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(new Intent(getActivity(), Payment.class));
-            }
-        });
-        recyclerView.setAdapter(adapter);
-        addDataToList();
         return view;
     }
     private void addDataToList(){
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference().child("ShopImages");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://picast-548a1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Cart");
 
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Clear the list before adding new data
                 mList.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String title = snapshot.getKey();
-                    String authorImage = snapshot.child("authorImage").getValue(String.class);
-                    String artImage = snapshot.child("imagekey").getValue(String.class);
-                    String artAuthor = snapshot.child("author").getValue(String.class);
-                    double artPrice = snapshot.child("price").getValue(Double.class);
-                    int isCart = snapshot.child("isCart").getValue(Integer.class);
-                    if(isCart == 1)
-                        totalAmount += artPrice;
+                    System.out.println();
+                    String imgTitle = snapshot.child("title").getValue(String.class);
+                    String artImage = snapshot.child("artImage").getValue(String.class);
+                    String user = snapshot.child("user").getValue(String.class);
+                    String author = snapshot.child("author").getValue(String.class);
+                    Double artPrice = snapshot.child("artPrice").getValue(Double.class);
 
-                    ArtData artData = new ArtData(title, artImage, authorImage, artAuthor);
+                    CartData cartData = new CartData(imgTitle, artImage, artPrice, author, user);
+                    SharedPreferences sp = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
 
-                    if(isCart==1){
-                        mList.add(artData);
+                    // Retrieve the username from SharedPreferences
+                    String username =sp.getString("name", "");
+                    System.out.println(username);
+                    if(user=="username"){
+                        mList.add(cartData);
                     }
                 }
                 adapter.notifyDataSetChanged();

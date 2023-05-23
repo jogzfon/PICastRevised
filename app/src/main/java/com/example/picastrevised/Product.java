@@ -87,6 +87,7 @@ public class Product extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseControl firebaseControl = new FirebaseControl();
                 firebaseControl.AddToCart(cartData);
+                Toast.makeText(Product.this, "Item Added To Cart", Toast.LENGTH_SHORT).show();
             }
         });
         btnAddToFav.setOnClickListener(new View.OnClickListener() {
