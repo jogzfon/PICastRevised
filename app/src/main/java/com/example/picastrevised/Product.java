@@ -104,6 +104,8 @@ public class Product extends AppCompatActivity {
 
                 adventOfLightRef.child("isFavorite").setValue(1);
                 Toast.makeText(Product.this, "Added to Favorites", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Product.this, HomePage.class);
+                startActivity(intent);
             }
         });
     }
