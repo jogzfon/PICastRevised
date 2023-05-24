@@ -199,10 +199,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
             case R.id.fabCamera:
                 openCamera();
                 break;
-            case R.id.cardView:
-//                TextView featuredArtTitle = findViewById(R.id.featuredTitle);
-//                Toast.makeText(this, featuredArtTitle.getText(), Toast.LENGTH_SHORT).show();
-                break;
         }
     }
     private void openCamera() {
