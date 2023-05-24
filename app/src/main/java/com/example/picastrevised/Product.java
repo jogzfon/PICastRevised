@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 public class Product extends AppCompatActivity {
 
     private CartData cartData;
@@ -35,6 +37,7 @@ public class Product extends AppCompatActivity {
         TextView imgTitle = findViewById(R.id.imgTitle);
         TextView price = findViewById(R.id.txtprice);
         ImageView imgProduct = findViewById(R.id.imgProduct);
+        TextView description = findViewById(R.id.txtDescription);
 
         Button btnAdd = findViewById(R.id.btnAddToCart);
         Button btnAddToFav = findViewById(R.id.btnAddToFavorites);
@@ -59,8 +62,10 @@ public class Product extends AppCompatActivity {
                         String authorImage = snapshot.child("authorImage").getValue(String.class);
                         String artAuthor = snapshot.child("author").getValue(String.class);
                         Double artPrice = snapshot.child("price").getValue(Double.class);
+                        String artDescription = snapshot.child("description").getValue(String.class);
 
-                        cartData = new CartData(imgtitle, artImage, artPrice, artAuthor, uname);
+                        cartData = new CartData(imgtitle, artImage, artPrice, artAuthor, uname,artDescription);
+                        description.setText(cartData.getDescription());
                         Picasso.get().load(cartData.getArtImage()).into(imgProduct);
                         imgTitle.setText(cartData.getTitle());
 

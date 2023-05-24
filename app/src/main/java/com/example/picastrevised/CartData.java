@@ -10,13 +10,23 @@ public class CartData {
     private double artPriceJPY;
     private String author;
     private String user;
+    private String description;
 
-    public CartData(String title, String artImage, double artPrice, String author, String user) {
+    public CartData(String title, String artImage, double artPrice, String author, String user,String description) {
         this.title = title;
         this.artImage = artImage;
         this.artPrice = artPrice;
         this.author = author;
         this.user = user;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitle() {
