@@ -98,7 +98,6 @@ public class Shop extends Fragment {
             editor.apply();
             Intent intent = new Intent(requireContext(), Product.class);
             startActivity(intent);
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show();
         });
         recyclerView.setAdapter(adapter);
         return view;
