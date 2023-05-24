@@ -2,6 +2,8 @@ package com.example.picastrevised;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +19,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -31,7 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.Manifest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -45,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 1001;
+    private static final int CAMERA_CAPTURE_REQUEST_CODE = 1002;
     private RecyclerView recyclerView,fRecyclerView, sRecyclerView;
     private SearchView searchView;
 
@@ -53,6 +59,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == Activity.RESULT_OK){
+
+                }
+            });
 
 
     @Override
@@ -77,6 +89,18 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addDataToList();
         adapter = new ArtAdapter(mList);
+
+        FloatingActionButton fab = findViewById(R.id.fabCamera);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (checkCameraPermission()) {
+                    openCamera();
+                } else {
+                    requestCameraPermission();
+                }
+            }
+        });
         adapter.setOnItemClickListener(new ArtAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ArtData artData) {
@@ -198,11 +222,34 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
             case R.id.btnConverter:
                 replacementFragment(new Converter());
                 break;
-            case R.id.fabCamera:
-                openCamera();
-                break;
+//            case R.id.fabCamera:
+//                openCamera();
+//                break;
         }
     }
+    private boolean checkCameraPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        }
+        return true;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void openCamera() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "new image");
@@ -211,6 +258,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         Intent cam_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cam_intent.putExtra(MediaStore.EXTRA_OUTPUT, img_uri);
-        startActivity(cam_intent);
+        startActivityForResult(cam_intent, CAMERA_CAPTURE_REQUEST_CODE);
     }
 }
