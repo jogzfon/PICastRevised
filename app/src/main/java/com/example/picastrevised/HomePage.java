@@ -86,7 +86,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 editor.apply();
                 Intent intent = new Intent(HomePage.this, Product.class);
                 startActivity(intent);
-                Toast.makeText(HomePage.this, "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setAdapter(adapter);
@@ -140,7 +139,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     }
     private void filterList(String query){
         if(query != null){
-            ArrayList<ArtData> filteredList = new ArrayList<ArtData>();
+            ArrayList<ArtData> filteredList = new ArrayList<>();
             for(ArtData artData : mList){
                 if(artData.getTitle().toLowerCase(Locale.ROOT).contains(query)){
                     filteredList.add(artData);

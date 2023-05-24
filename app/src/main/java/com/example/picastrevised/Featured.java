@@ -54,7 +54,6 @@ public class Featured extends Fragment {
                 editor.apply();
                 Intent intent = new Intent(requireContext(), Product.class);
                 startActivity(intent);
-                Toast.makeText(requireContext(), "Clicked" + artData.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setAdapter(adapter);
